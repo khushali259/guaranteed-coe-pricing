@@ -1,0 +1,12 @@
+# Python 3.11 (tested with 3.11.13)
+pandas==2.3.3
+numpy
+statsmodels==0.14.5
+scikit-learn
+scipy
+matplotlib
+requests
+jupyter
+nbconvert
+# optional: buffer calculator demo (app.py)
+streamlit

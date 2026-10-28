@@ -1,0 +1,7 @@
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+.DS_Store
+
+# personal notes, not part of the submission
+STUDY_GUIDE.md
