@@ -20,7 +20,7 @@ cd notebooks
 for nb in 0*.ipynb; do jupyter nbconvert --to notebook --execute --inplace "$nb" --ExecutePreprocessor.timeout=1800; done
 ```
 
-Run the notebooks in order; each reads only the files written by the ones before it. Total run time is about 10–11 minutes on a laptop (05 and 08 take about 4 and 6 minutes). `data/processed/forecasts.csv` is about 15 MB. Results are deterministic: no random train/test splits anywhere, and fixed random seeds for SARIMAX simulation, gradient boosting and the bootstrap.
+Run the notebooks in order; each reads only the files written by the ones before it. Total run time is about 11–12 minutes on a laptop (05 and 08 take about 4 and 6 minutes). `data/processed/forecasts.csv` is about 21 MB. Results are deterministic: no random train/test splits anywhere, and fixed random seeds for SARIMAX simulation, gradient boosting and the bootstrap.
 
 Optional demo: `pip install streamlit && streamlit run app.py` (from the project root).
 
@@ -29,10 +29,10 @@ Optional demo: `pip install streamlit && streamlit run app.py` (from the project
 ```
 data/raw/            untouched downloads + policy_events.csv
 data/processed/      everything the notebooks write (features, forecasts, tables)
-notebooks/           01_download … 08_sensitivity, run in order
+notebooks/           01_download … 09_risk_diagnostics, run in order
 src/                 shared code: config, data, features, models, metrics, newsvendor, backtest, plots
 figures/             charts for the report
-report/              report draft, slides outline, EDA findings
+report/              report_draft.md/.pdf (4-page report), report_full.md (all results), slides outline, EDA findings
 app.py               Streamlit buffer calculator (optional)
 ```
 
@@ -46,6 +46,7 @@ app.py               Streamlit buffer calculator (optional)
 | `06_newsvendor` | 6 Newsvendor buffer | `buffer_table.csv` (headline, by volatility), `buffer_table_by_bidratio.csv`, implied cost ratios, today's buffer (`buffer_today.csv`, `buffer_today_by_model.csv`), the one-line formula (`buffer_formula.csv`), c_o scenarios |
 | `07_backtest` | 7 Backtest | `backtest_results.csv`, frontier charts, bootstrap CIs (full and test period), best-fixed-% benchmark, sensitivity |
 | `08_sensitivity` | Robustness | M1 window, refit frequency, the 16 M6 variants, adaptive calibration on M1/M3/M6 (`sensitivity_*.csv`, `figures/08_*.png`) |
+| `09_risk_diagnostics` | Risk diagnostics | cumulative shortfall and cost over time vs fixed 5%; Kupiec coverage and Christoffersen clustering tests for R2, R4, R7 (`kupiec_coverage_tests.csv`, `christoffersen_independence_tests.csv`, `figures/09_*.png`) |
 
 ## Conventions and design decisions
 
