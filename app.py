@@ -27,6 +27,14 @@ st.write(f"Critical ratio tau = {tau}. Volatility range for '{cond}' in Cat {cat
 st.write(f"In the 2014-2026 backtest this buffer was too small on **{row.underwater_pct:.0f}%** "
          f"of sales, with an average shortfall of **S${row.avg_shortfall:,.0f}** when it was.")
 
+st.subheader("One-line formula (volatility-scaled rule)")
+form = pd.read_csv("data/processed/buffer_formula.csv")
+z = form.loc[form.tau == tau, "z"].iloc[0]
+vol_now = today.loc[today.category == cat, "vol_ewma"].iloc[0]
+st.write(f"buffer = z x recent volatility x premium, with z = **{z:.2f}** at k = {k}. "
+         f"Cat {cat}'s EWMA volatility today is {vol_now:.1%}, so the formula gives "
+         f"**{max(0, z * vol_now):.1%}** of the premium.")
+
 st.subheader("Forecast made at the latest round (Oct 2026, round 2)")
 st.dataframe(today[today.category == cat].round(0), hide_index=True)
 st.caption("Hypothetical backtest performance, not proven savings. c_o (the cost of overpricing) is not public, "

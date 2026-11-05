@@ -15,9 +15,11 @@ RULE_COLORS = {
     "R4 Newsvendor QR": SERIES[1],
     "R5 GBM (stretch)": SERIES[6],
     "R6 Combo M1+M3": SERIES[2],
+    "R7 Vol-scaled": SERIES[4],
+    "R8 M1 adaptive": SERIES[5],
 }
 MODEL_COLORS = {"M0": "#52514e", "M1": SERIES[0], "M2": SERIES[3], "M3": SERIES[1],
-                "M4": SERIES[6], "M5": SERIES[2]}
+                "M4": SERIES[6], "M5": SERIES[2], "M6": SERIES[4], "M7": SERIES[5]}
 INK, INK_2, GRID = "#0b0b0b", "#52514e", "#e4e3df"
 
 

@@ -1,26 +1,32 @@
 {
-  "best_model": "M1",
+  "best_model": "M6",
   "rule": "lowest mean pinball loss (S$) over tau, h=2, validation period 2014-19",
   "validation_mean_pinball": {
     "M1": 1208.1,
     "M2": 1420.6,
     "M3": 1235.5,
     "M4": 1227.8,
-    "M5": 1209.8
+    "M5": 1209.8,
+    "M6": 1188.3,
+    "M7": 1218.4
   },
   "test_mean_pinball": {
     "M1": 1916.5,
     "M2": 2063.2,
     "M3": 1926.6,
     "M4": 1907.6,
-    "M5": 1901.3
+    "M5": 1901.3,
+    "M6": 1928.7,
+    "M7": 1951.4
   },
   "full_period_mean_pinball": {
     "M1": 1574.2,
     "M2": 1752.7,
     "M3": 1592.7,
     "M4": 1579.1,
-    "M5": 1567.1
+    "M5": 1567.1,
+    "M6": 1570.9,
+    "M7": 1597.2
   },
   "sarimax_orders": {
     "A": [
@@ -38,5 +44,6 @@
       0,
       1
     ]
-  }
+  },
+  "m7_eta": 0.0025
 }

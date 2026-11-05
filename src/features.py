@@ -3,11 +3,11 @@
 import numpy as np
 import pandas as pd
 
-from .config import HORIZONS, POLICY_EVENTS
+from .config import EWMA_LAMBDA, HORIZONS, POLICY_EVENTS
 
 FEATURES = ["bid_ratio", "bid_ratio_lag1", "unsuccessful_share", "mom_1", "mom_2",
-            "mom_4", "vol_12", "quota_chg_6", "e_minus_b", "round_no", "month_num",
-            "post_2022"]
+            "mom_4", "vol_12", "vol_ewma", "quota_chg_6", "e_minus_b", "round_no",
+            "month_num", "post_2022"]
 
 
 def load_policy_events(path=POLICY_EVENTS) -> pd.DataFrame:
@@ -49,6 +49,8 @@ def build_features(panel: pd.DataFrame, events: pd.DataFrame | None = None,
         for k in (1, 2, 4):
             g[f"mom_{k}"] = P / P.shift(k) - 1
         g["vol_12"] = g["ret_1"].rolling(12).std()
+        # EWMA volatility: recent rounds weigh more; sqrt of the EWMA of squared changes
+        g["vol_ewma"] = np.sqrt((g["ret_1"] ** 2).ewm(alpha=1 - EWMA_LAMBDA, min_periods=12).mean())
         g["quota_chg_6"] = Q / Q.shift(6) - 1          # change vs one quarter (6 rounds) ago
         g["log_premium"] = np.log(P)
         g["round_no"] = g["bidding_no"]

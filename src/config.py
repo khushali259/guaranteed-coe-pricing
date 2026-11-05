@@ -27,6 +27,8 @@ TEST_START = "2014-01"                # first forecast origin (train window 2010
 ROLL_WINDOW = 48                      # M1 look-back (rounds)
 REFIT_EVERY = 4                       # rounds between model refits
 POST_2022_FROM = "2022-05"            # May 2022 category redefinition
+EWMA_LAMBDA = 0.94                    # decay of the EWMA volatility used by M6 (RiskMetrics value)
+ACI_ETAS = [0.0025, 0.005, 0.01, 0.02]  # step sizes tried for adaptive calibration (M7), chosen on 2014-19
 
 # Model selection uses the validation period only; 2020-2026 is the untouched test period.
 VALID_PERIODS = ["2014-19"]
