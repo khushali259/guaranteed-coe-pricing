@@ -5,7 +5,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data" / "raw"
 PROC = ROOT / "data" / "processed"
 FIG = ROOT / "figures"
-REPORT = ROOT / "report"
+REPORT = PROC                         # text summaries (EDA findings, buffer guidance) sit with the other outputs
 
 # data.gov.sg dataset: LTA "COE Bidding Results / Prices"
 API_URL = "https://data.gov.sg/api/action/datastore_search"

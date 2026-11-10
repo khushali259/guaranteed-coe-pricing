@@ -3,5 +3,13 @@ __pycache__/
 .venv/
 .DS_Store
 
-# personal notes, not part of the submission
+# personal notes and drafts, not part of the submission
 STUDY_GUIDE.md
+PRESENTATION_SCRIPT.md
+report/
+
+# temporary browser profile from screenshots
+figures/prof/
+
+# Streamlit secrets (none used)
+.streamlit/secrets.toml

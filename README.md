@@ -22,25 +22,31 @@ for nb in 0*.ipynb; do jupyter nbconvert --to notebook --execute --inplace "$nb"
 
 Run the notebooks in order; each reads only the files written by the ones before it. Total run time is about 11–12 minutes on a laptop (05 and 08 take about 4 and 6 minutes). `data/processed/forecasts.csv` is about 21 MB. Results are deterministic: no random train/test splits anywhere, and fixed random seeds for SARIMAX simulation, gradient boosting and the bootstrap.
 
-Optional demo: `pip install streamlit && streamlit run app.py` (from the project root).
+## Buffer calculator (Streamlit app)
+
+```bash
+streamlit run app.py
+```
+
+`app.py` is an interactive version of the buffer table: pick a COE category, premium, market condition and cost ratio k, and it shows the recommended buffer, how often a buffer of that size was too small in the backtest, today's market and a comparison with no buffer and fixed 5%. It only reads the tables in `data/processed/` and never re-runs the models. The theme is in `.streamlit/config.toml`.
 
 ## Layout
 
 ```
 data/raw/            untouched downloads + policy_events.csv
-data/processed/      everything the notebooks write (features, forecasts, tables)
+data/processed/      everything the notebooks write (features, forecasts, tables, eda_findings.md, buffer_guidance.txt)
 notebooks/           01_download … 09_risk_diagnostics, run in order
 src/                 shared code: config, data, features, models, metrics, newsvendor, backtest, plots
-figures/             charts for the report
-report/              report_draft.md/.pdf (4-page report), report_full.md (all results), slides outline, EDA findings
-app.py               Streamlit buffer calculator (optional)
+figures/             charts used in the report and slides (10_calculator.png is a screenshot of the app)
+app.py               Streamlit buffer calculator
+.streamlit/          app theme
 ```
 
 | Notebook | Phase | Main outputs |
 |---|---|---|
 | `01_download` | 1 Data | raw snapshot + checks (equal rows, no duplicates, only Apr–Jun 2020 missing) |
 | `02_clean_features` | 2 Cleaning & features | `coe_features.csv`; target spot check; hand recomputation; automated look-ahead test |
-| `03_eda` | 3 EDA | 6 charts, ADF tests, rise summary stats, `report/eda_findings.md` |
+| `03_eda` | 3 EDA | 6 charts, ADF tests, rise summary stats, `eda_findings.md` |
 | `04_regression` | 4 Driver regression | HAC OLS, VIF, post-2022 stability, per-category fits, residuals, `regression_effects.csv` |
 | `05_forecast` | 5 Forecast distribution | `forecasts.csv` (M0–M7, h = 1–4, 6 quantiles), pinball/calibration tables, model choice on 2014–19 (`best_model.json`), Diebold–Mariano tests (`dm_tests.csv`) |
 | `06_newsvendor` | 6 Newsvendor buffer | `buffer_table.csv` (headline, by volatility), `buffer_table_by_bidratio.csv`, implied cost ratios, today's buffer (`buffer_today.csv`, `buffer_today_by_model.csv`), the one-line formula (`buffer_formula.csv`), c_o scenarios |
