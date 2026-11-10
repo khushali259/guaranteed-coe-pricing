@@ -223,7 +223,8 @@ with t2:
             card(x1, "Closing premium", f"S${now.premium_now:,.0f}", "Oct 2026, round 2")
             band = bt[(bt.category == cat) & (bt.condition == now.condition)].signal_range.iloc[0]
             card(x2, "Market condition", CONDITION[now.condition], f"volatility band {band}",
-                 "Tercile of the 12-round volatility (2014-2026 cut-offs).")
+                 "Today's 12-round volatility against this category's tercile cut-offs "
+                 "(lowest, middle, highest third of all rounds, 2010-2026).")
             st.write("")
             y1, y2 = st.columns(2)
             card(y1, "12-round volatility", f"{now.vol_12:.1%}", "sets the market condition",
